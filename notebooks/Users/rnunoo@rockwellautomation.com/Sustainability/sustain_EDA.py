@@ -23,6 +23,9 @@ df1 = spark.read.format(file_type) \
 
 compressor_data = df1.toPandas()
 
+#dropping irrelevant data 
+compressor_data = compressor_data.drop(columns = ['Compressor Total Run Hours (Hours)','Compressed Air Desiccant Dryer Dew Point (F)','Outside_Humidity (% RH)','OutSide_Temp (F)', 'Compressed Air Flow near distribution header (SCFM)','Compressed Air Totalizer near distribution header (m3n)','_c15','_c16','_c17'])
+
 # COMMAND ----------
 
 # Production data 
@@ -41,7 +44,8 @@ df2 = spark.read.format(file_type) \
   .option("sep", delimiter) \
   .load(file_location)
 production_data = df2.toPandas()
-
+#dropping irrelevant data 
+production_data = production_data.drop(columns = ['COMPLETE REASON','CONST TIME','PLANT','AREA','OPERATION'])
 
 # COMMAND ----------
 
@@ -138,7 +142,8 @@ production_data.head()
 
 # COMMAND ----------
 
-## Energy consumed by each oven 
+#Changing datatypes 
+
 Oven_trend['Time_stamp']=pd.to_datetime(Oven_trend['Time_stamp'])
 Oven_trend['Avg_Current_SM1'] = Oven_trend['Avg_Current_SM1'].astype(float)
 Oven_trend['Avg_Current_SM4'] = Oven_trend['Avg_Current_SM4'].astype(float)
@@ -146,6 +151,8 @@ Oven_trend['Avg_Current_SM7'] = Oven_trend['Avg_Current_SM7'].astype(float)
 Oven_trend['Avg_Voltage_SM1'] = Oven_trend['Avg_Voltage_SM1'].astype(float)
 Oven_trend['Avg_Voltage_SM4'] = Oven_trend['Avg_Voltage_SM4'].astype(float)
 Oven_trend['Avg_Voltage_SM7'] = Oven_trend['Avg_Voltage_SM7'].astype(float)
+
+## Energy consumed by each oven 
 Oven_trend['KWH_SM1'] = (Oven_trend['Avg_Current_SM1']*Oven_trend['Avg_Voltage_SM1'])/250
 Oven_trend['KWH_SM4'] = (Oven_trend['Avg_Current_SM4']*Oven_trend['Avg_Voltage_SM4'])/250
 Oven_trend['KWH_SM7'] = (Oven_trend['Avg_Current_SM7']*Oven_trend['Avg_Voltage_SM7'])/250
@@ -153,10 +160,17 @@ Oven_trend['KWH_SM7'] = (Oven_trend['Avg_Current_SM7']*Oven_trend['Avg_Voltage_S
 
 # COMMAND ----------
 
-##Energy consumption by compressor
-#dropping irrelevant data 
-compressor_data = compressor_data.drop(columns = ['Compressor Total Run Hours (Hours)','Outside_Humidity (% RH)','OutSide_Temp (F)', 'Compressed Air Flow near distribution header (SCFM)','Compressed Air Totalizer near distribution header (m3n)','_c15','_c16','_c17'])
 
-#
-compressor_data['Time Stamp']=pd.to_datetime(compressor_data['Time Stamp'])
-## dropping irrelevant data
+
+compressor_data['Time Stamp'] = pd.to_datetime(compressor_data['Time Stamp'])
+compressor_data['Compressor Running %'] = compressor_data['Compressor Running %'].astype(float)
+compressor_data['Compressor Motor Current (Amps)'] = compressor_data['Compressor Motor Current (Amps)'].astype(float)
+compressor_data['Compressed Motor Speed (RPM)'] = compressor_data['Compressed Motor Speed (RPM)'].astype(float)
+compressor_data['Compressor Motor Voltage (Volts)'] = compressor_data['Compressor Motor Voltage (Volts)'].astype(float)
+compressor_data['Compressor Discharge Pressure (PSI)'] = compressor_data['Compressor Discharge Pressure (PSI)'].astype(float)
+compressor_data['Compressed Air Pressure near distribution header (PSI)'] = compressor_data['Compressed Air Pressure near distribution header (PSI)'].astype(float)
+compressor_data['Compressed Air Stream Temperature near distribution header (F)'] = compressor_data['Compressed Air Stream Temperature near distribution header (F)'].astype(float)
+
+##Energy consumption by compressor
+
+compressor_data['compressor_KWH'] = (compressor_data['Compressor Motor Current (Amps)']*compressor_data['Compressor Motor Voltage (Volts)'])/60000
