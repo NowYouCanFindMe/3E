@@ -1,9 +1,11 @@
 # Databricks notebook source
-# MAGIC %sh git init
+# MAGIC %md 
+# MAGIC # Importing datasets from databricks fileStore  
 
 # COMMAND ----------
 
-# File location and type
+# Air_compressor data
+
 file_location = "/FileStore/tables/Twinsburg_Main_Air_Compressor.csv"
 file_type = "csv"
 
@@ -19,23 +21,11 @@ df1 = spark.read.format(file_type) \
   .option("sep", delimiter) \
   .load(file_location)
 
-#display(df1)
-
-
-# COMMAND ----------
-
-#Air compressor EDA
-import datetime
-import pandas as pd
-from math import *
-import matplotlib.pyplot as plt
-import numpy as np
 compressor_data = df1.toPandas()
-#display(df1)
 
 # COMMAND ----------
 
-# File location and type
+# Production data 
 file_location = "/FileStore/tables/Barcode_Reflow_Oven_Scan_Times_July_2020_1.csv"
 file_type = "csv"
 
@@ -51,16 +41,11 @@ df2 = spark.read.format(file_type) \
   .option("sep", delimiter) \
   .load(file_location)
 production_data = df2.toPandas()
-#display(df2)
+
 
 # COMMAND ----------
 
-#plot Oven
-display(df2)
-
-# COMMAND ----------
-
-# File location and type
+# Energy usage cost
 file_location = "/FileStore/tables/julyUsage.csv"
 file_type = "csv"
 
@@ -69,22 +54,16 @@ infer_schema = "true"
 first_row_is_header = "true"
 delimiter = ","
 
-# The applied options are for CSV files. For other file types, these will be ignored.
 df3 = spark.read.format(file_type) \
   .option("inferSchema", infer_schema) \
   .option("header", first_row_is_header) \
   .option("sep", delimiter) \
   .load(file_location)
 Usage_cost = df3.toPandas()
-display(df3)
 
 # COMMAND ----------
 
-display(df3)
-
-# COMMAND ----------
-
-# File location and type
+# Oven trend_data
 file_location = "/FileStore/tables/July2020_Oven_TrendData-2.csv"
 file_type = "csv"
 
@@ -93,18 +72,19 @@ infer_schema = "true"
 first_row_is_header = "true"
 delimiter = ","
 
-# The applied options are for CSV files. For other file types, these will be ignored.
 df4 = spark.read.format(file_type) \
   .option("inferSchema", infer_schema) \
   .option("header", first_row_is_header) \
   .option("sep", delimiter) \
   .load(file_location)
 Oven_trend = df4.toPandas()
-display(df4)
+#Cleaning and reorganizing data
+Oven_trend = Oven_trend.iloc[4:]
+Oven_trend.columns =['Time_stamp',	'Avg_Current_SM1','Avg_Voltage_SM1','Avg_Current_SM4','Avg_Voltage_SM4','Avg_Current_SM7','Avg_Voltage_SM7']
 
 # COMMAND ----------
 
-# File location and type
+# meter data
 file_location = "/FileStore/tables/Meter_Jan1_to_July_28_2020_interval_data.csv"
 file_type = "csv"
 
@@ -120,16 +100,24 @@ df5 = spark.read.format(file_type) \
   .option("sep", delimiter) \
   .load(file_location)
 meter_data = df5.toPandas()
-display(df5)
 
 # COMMAND ----------
 
-#the five pandas dataframe 
-#compressor_data
-#meter_data
-# Oven_trend
-#Usage_cost*
-#production_data
+import datetime
+import pandas as pd
+from math import *
+import matplotlib.pyplot as plt
+import numpy as np
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC # five dataset
+# MAGIC ###compressor_data
+# MAGIC ###meter_data
+# MAGIC ###Oven_trend
+# MAGIC ###Usage_cost*
+# MAGIC ###production_data
 
 # COMMAND ----------
 
@@ -141,8 +129,34 @@ meter_data.head(10)
 
 # COMMAND ----------
 
-Oven_trend.head(10)
+production_data.head()
 
 # COMMAND ----------
 
-production_data.head()
+# MAGIC %md
+# MAGIC ## Calculating Energy (KWH)
+
+# COMMAND ----------
+
+## Energy consumed by each oven 
+Oven_trend['Time_stamp']=pd.to_datetime(Oven_trend['Time_stamp'])
+Oven_trend['Avg_Current_SM1'] = Oven_trend['Avg_Current_SM1'].astype(float)
+Oven_trend['Avg_Current_SM4'] = Oven_trend['Avg_Current_SM4'].astype(float)
+Oven_trend['Avg_Current_SM7'] = Oven_trend['Avg_Current_SM7'].astype(float)
+Oven_trend['Avg_Voltage_SM1'] = Oven_trend['Avg_Voltage_SM1'].astype(float)
+Oven_trend['Avg_Voltage_SM4'] = Oven_trend['Avg_Voltage_SM4'].astype(float)
+Oven_trend['Avg_Voltage_SM7'] = Oven_trend['Avg_Voltage_SM7'].astype(float)
+Oven_trend['KWH_SM1'] = (Oven_trend['Avg_Current_SM1']*Oven_trend['Avg_Voltage_SM1'])/250
+Oven_trend['KWH_SM4'] = (Oven_trend['Avg_Current_SM4']*Oven_trend['Avg_Voltage_SM4'])/250
+Oven_trend['KWH_SM7'] = (Oven_trend['Avg_Current_SM7']*Oven_trend['Avg_Voltage_SM7'])/250
+
+
+# COMMAND ----------
+
+##Energy consuption by compressor
+#dropping irrelevant data 
+compressor_data = compressor_data.drop(columns = ['Compressor Total Run Hours (Hours)','Outside_Humidity (% RH)','OutSide_Temp (F)', 'Compressed Air Flow near distribution header (SCFM)','Compressed Air Totalizer near distribution header (m3n)','_c15','_c16','_c17'])
+
+#
+compressor_data['Time Stamp']=pd.to_datetime(compressor_data['Time Stamp'])
+## dropping irrelevant data
