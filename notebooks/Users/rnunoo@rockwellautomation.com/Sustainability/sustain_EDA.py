@@ -117,7 +117,7 @@ df5 = spark.read.format(file_type) \
 meter_data = df5.toPandas()
 meter_data ['Time_Stamp'] = meter_data['Date']+' '+meter_data['Time']
 #dropping irrelevant data 
-meter_data = meter_data.drop(columns = ['CAP KVAR','CAP KVA','CAP PF','MV90 ID','Rate','Premise','Name','Address','Date','Time'])
+meter_data = meter_data.drop(columns = ['CAP KVAR','CAP KVA','CAP PF','MV90 ID','Rate','Premise','Name','Address','Date','Time','Peak'])
 
 # COMMAND ----------
 
@@ -197,9 +197,38 @@ compressor_data['compressor_KWH'] = (compressor_data['Compressor Motor Current (
 
 # COMMAND ----------
 
-temp1 = compressor_data['compressor_KWH'].resample('30Min', 'mean')
+production_data['Time_Stamp'] = pd.to_datetime(production_data['Time_Stamp'])
+production_data_ts = production_data.set_index('Time_Stamp')
+df_production = production_data_ts.resample('30Min').mean()
+
+
+# COMMAND ----------
+
+#Resampling to 30 min
+
+
+compressor_data_ts = compressor_data.set_index('Time_Stamp')
+df_compressor = compressor_data_ts.resample('30Min').mean()
+
+Oven_trend_ts = Oven_trend.set_index('Time_Stamp')
+df_Oventren = Oven_trend_ts.resample('30Min').mean()
+
+df_meter = meter_data.set_index('Time_Stamp')
+
+# COMMAND ----------
+
+Main_df = df_compressor.join(df_Oventren, how='outer').join(df_meter, how='outer').join(df_production, how='outer')
+
+# COMMAND ----------
+
+Main_df.head()
 
 # COMMAND ----------
 
 # MAGIC %md 
 # MAGIC #Subsetting 
+
+# COMMAND ----------
+
+#DataFrame for July
+
