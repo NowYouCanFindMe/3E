@@ -123,11 +123,16 @@ meter_data = meter_data.drop(columns = ['CAP KVAR','CAP KVA','CAP PF','MV90 ID',
 
 # MAGIC %md
 # MAGIC # five dataset
-# MAGIC ###compressor_data
-# MAGIC ###meter_data
-# MAGIC ###Oven_trend
-# MAGIC ###Usage_cost*
-# MAGIC ###production_data
+# MAGIC ####compressor_data - 1 min time interval - Energy Demand by compressor
+# MAGIC ####meter_data      - 30 min interval - Facility energy usage
+# MAGIC ####Oven_trend      - 15 min interval - Energy Demand by three ovens
+# MAGIC ####Usage_cost*     - monthly cost of energy
+# MAGIC ####production_data - Time it takes to produce
+
+# COMMAND ----------
+
+Usage_cost.head()
+##Extract monthly rate from  
 
 # COMMAND ----------
 
@@ -140,6 +145,10 @@ meter_data.head(10)
 # COMMAND ----------
 
 production_data.head()
+
+# COMMAND ----------
+
+Oven_trend.head()
 
 # COMMAND ----------
 
@@ -183,3 +192,14 @@ compressor_data['compressor_KWH'] = (compressor_data['Compressor Motor Current (
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC #Data aggregation
+
+# COMMAND ----------
+
+temp1 = compressor_data['compressor_KWH'].resample('30Min', 'mean')
+
+# COMMAND ----------
+
+# MAGIC %md 
+# MAGIC #Subsetting 
