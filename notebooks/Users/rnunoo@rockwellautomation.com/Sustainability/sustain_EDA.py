@@ -153,7 +153,7 @@ Oven_trend['KWH_SM7'] = (Oven_trend['Avg_Current_SM7']*Oven_trend['Avg_Voltage_S
 
 # COMMAND ----------
 
-##Energy consuption by compressor
+##Energy consumption by compressor
 #dropping irrelevant data 
 compressor_data = compressor_data.drop(columns = ['Compressor Total Run Hours (Hours)','Outside_Humidity (% RH)','OutSide_Temp (F)', 'Compressed Air Flow near distribution header (SCFM)','Compressed Air Totalizer near distribution header (m3n)','_c15','_c16','_c17'])
 
