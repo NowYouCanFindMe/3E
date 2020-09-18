@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usages",
+  "info": {
+    "name": "usage"
+  },
+  "options": {
+    "timestamps": true,
+    "increments": true,
+    "comment": ""
+  },
+  "attributes": {
+    "DATE": { "type": "date" },
+    "KVAR": { "type": "decimal" },
+    "R-KWH": { "type": "decimal" },
+    "DEMAND": { "type": "decimal" },
+    "KWH": { "type": "decimal" },
+    "AMT": { "type": "decimal" }
+  }
+}

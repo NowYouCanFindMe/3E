@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "barcodescans",
+  "info": {
+    "name": "barcodescan"
+  },
+  "options": {
+    "timestamps": true,
+    "increments": true,
+    "comment": ""
+  },
+  "attributes": {
+    "UniqueIndex": { "type": "integer" },
+    "COMPLETIONTIME": { "type": "datetime" },
+    "COMPLETEREASON": { "type": "text" },
+    "TACTIMEMIN": { "type": "decimal" },
+    "CONSTTIME": { "type": "text" },
+    "OPTELSETUP": { "type": "text" },
+    "PARTNUMBER": { "type": "text" },
+    "PRIORCOMPLETIONTIME": { "type": "datetime" },
+    "ISCHANGEOVER": { "type": "text" },
+    "PLANT": { "type": "text" },
+    "AREA": { "type": "text" },
+    "LINE": { "type": "text" },
+    "ASSEMBLYSIDE": { "type": "text" },
+    "OPERATION": { "type": "text" }
+  }
+}

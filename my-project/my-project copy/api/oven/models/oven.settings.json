@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ovens",
+  "info": {
+    "name": "oven"
+  },
+  "options": {
+    "timestamps": true,
+    "increments": true,
+    "comment": ""
+  },
+  "attributes": {
+    "Date-Time": {
+      "type": "datetime"
+    },
+    "SM1AverageCurrent": {
+      "type": "decimal"
+    },
+    "SM1AverageL-LVoltage": {
+      "type": "decimal"
+    },
+    "SM4AverageCurrent": {
+      "type": "decimal"
+    },
+    "SM4AverageL-LVoltage": {
+      "type": "decimal"
+    },
+    "SM7AverageCurrent": {
+      "type": "decimal"
+    },
+    "SM7AverageL-LVoltage": {
+      "type": "decimal"
+    }
+  }
+}

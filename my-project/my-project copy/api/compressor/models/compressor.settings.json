@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "compressors",
+  "info": {
+    "name": "compressor"
+  },
+  "options": {
+    "timestamps": true,
+    "increments": true,
+    "comment": ""
+  },
+  "attributes": {
+    "SampleNumber": {"type": "integer"},
+    "TimeStamp": {"type": "datetime"},
+    "Outside_Humidity(%RH)": {"type": "decimal"},
+    "OutSide_Temp(F)": {"type": "decimal"},
+    "CompressorRunning%": {"type": "decimal"},
+    "CompressorTotalRunHours(Hours)": {"type": "integer"},
+    "CompressedAirDesiccantDryerDewPoint(F)": {"type": "integer"},
+    "CompressorMotorCurrent(Amps)": {"type": "integer"},
+    "CompressedMotorSpeed(RPM)": {"type": "integer"},
+    "CompressorMotorVoltage(Volts)": {"type": "integer"},
+    "CompressorDischargePressure(PSI)": {"type": "integer"},
+    "CompressedAirPressureneardistributionheader(PSI)": {"type": "decimal"},
+    "CompressedAirStreamTemperatureneardistributionheader(F)": {"type": "decimal"},
+    "CompressedAirFlowneardistributionheader(SCFM)": {"type": "integer"},
+    "CompressedAirTotalizerneardistributionheader(m3n)": {"type": "integer"}
+  }
+}
