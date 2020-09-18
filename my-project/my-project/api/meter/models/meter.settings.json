@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meters",
+  "info": {
+    "name": "meter"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Date": {
+      "type": "date"
+    },
+    "Time": {
+      "type": "time"
+    },
+    "KW": {
+      "type": "decimal"
+    },
+    "KVAR": {
+      "type": "decimal"
+    },
+    "CAPKVAR": {
+      "type": "decimal"
+    },
+    "KVA": {
+      "type": "decimal"
+    },
+    "CAPKVA": {
+      "type": "decimal"
+    },
+    "PF": {
+      "type": "float"
+    },
+    "CAPPF": {
+      "type": "float"
+    },
+    "MV90ID": {
+      "type": "string"
+    },
+    "RATE": {
+      "type": "string"
+    },
+    "PREMISE": {
+      "type": "string"
+    },
+    "KWH": {
+      "type": "decimal"
+    },
+    "PEAK": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string"
+    }
+  }
+}
