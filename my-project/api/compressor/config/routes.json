@@ -1,0 +1,53 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/compressors",
+      "handler": "compressor.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/compressors/count",
+      "handler": "compressor.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/compressors/:id",
+      "handler": "compressor.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/compressors",
+      "handler": "compressor.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/compressors/:id",
+      "handler": "compressor.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/compressors/:id",
+      "handler": "compressor.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {}
+  ]
+}
