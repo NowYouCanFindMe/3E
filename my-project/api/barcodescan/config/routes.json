@@ -1,0 +1,53 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/barcodescans",
+      "handler": "barcodescan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/barcodescans/count",
+      "handler": "barcodescan.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/barcodescans/:id",
+      "handler": "barcodescan.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/barcodescans",
+      "handler": "barcodescan.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/barcodescans/:id",
+      "handler": "barcodescan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/barcodescans/:id",
+      "handler": "barcodescan.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {}
+  ]
+}
