@@ -60,6 +60,10 @@ production_data.rename(columns ={'PRIOR COMPLETION TIME':'Time_Stamp'},inplace =
 
 # COMMAND ----------
 
+display(df2)
+
+# COMMAND ----------
+
 # Energy usage cost
 file_location = "/FileStore/tables/julyUsage.csv"
 file_type = "csv"
@@ -141,6 +145,7 @@ compressor_data.head()
 # COMMAND ----------
 
 meter_data.head(10)
+display(meter_data)
 
 # COMMAND ----------
 
@@ -200,7 +205,7 @@ compressor_data['compressor_KWH'] = (compressor_data['Compressor Motor Current (
 production_data['Time_Stamp'] = pd.to_datetime(production_data['Time_Stamp'])
 production_data_ts = production_data.set_index('Time_Stamp')
 df_production = production_data_ts.resample('30Min').mean()
-
+df_production
 
 # COMMAND ----------
 
@@ -217,11 +222,13 @@ df_meter = meter_data.set_index('Time_Stamp')
 
 # COMMAND ----------
 
-Main_df = df_compressor.join(df_Oventren, how='outer').join(df_meter, how='outer').join(df_production, how='outer')
+main_df = df_compressor.join(df_Oventren, how='outer').join(df_meter, how='outer').join(df_production, how='outer')
+main_df1 = Main_df.reset_index()
+main_df1.head(20)
 
 # COMMAND ----------
 
-Main_df.head()
+main_df1.to_csv('main.csv', index = False)
 
 # COMMAND ----------
 
