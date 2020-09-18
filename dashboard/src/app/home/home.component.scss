@@ -1,0 +1,45 @@
+.image {
+     height:40em; background-size:cover; width:auto;
+     background-image:url('./images/img.jpg');
+     background-position:50% 50%;
+}
+
+.ruler {
+    box-shadow: 1px 0.5px 1.5px #ecf0f1;
+    opacity: 80%;
+}
+.p {
+    color: #ecf0f1;
+}
+
+.header-font {
+    font-size: 2.5em;
+    opacity: 0.6;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+   
+    
+}
+
+.header-font-h1 {
+    font-size: 2em;
+}
+
+.title {
+    color: white;
+    font-size: 2rem;
+    font-family: 'Roboto', sans-serif;
+     -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+   
+
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
