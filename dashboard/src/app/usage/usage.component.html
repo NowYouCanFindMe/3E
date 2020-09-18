@@ -21,6 +21,11 @@
 
        <div class="card">
          Side 2
+         <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
+            <e-series-collection>
+                <e-series [dataSource]='chartData' type='Line' xName='month' yName='sales' name='Sales'></e-series>
+            </e-series-collection>
+        </ejs-chart>
           <!--chart 2-->
       </div>
 
@@ -28,6 +33,18 @@
   </div>
 </div>
 
+<!--Meter Data-->
 <div>
-  <app-line-chart></app-line-chart>
+  <h1> Meter Data </h1>
+
+    <p>Table is the meter reading </p>
+
+        <ag-grid-angular
+        style="min-width: 500px; height: 500px;"
+        class="ag-theme-alpine"
+        [rowData]="meters"
+        [columnDefs]="columnDefs"
+        >
+      </ag-grid-angular>
+
 </div>
