@@ -8,6 +8,7 @@
     box-shadow: 1px 0.5px 1.5px #ecf0f1;
     opacity: 80%;
 }
+
 .p {
     color: #ecf0f1;
 }
@@ -42,4 +43,30 @@
   width: 100%;
   color: white;
   text-align: center;
+}
+
+hr {
+    width: 50%;
+    color: white;
+    box-shadow: 0 4px 2px -2px gray;
+    opacity: 0.8;
+}
+
+h1, h4 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-body-container {
+    text-align: center; 
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 400px;
+}
+
+.ra-logo {
+    width: 200px;
+    height: 200px;
 }
