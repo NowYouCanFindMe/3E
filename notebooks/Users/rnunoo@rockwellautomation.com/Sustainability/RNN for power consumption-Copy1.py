@@ -60,6 +60,22 @@ len(aggreg_data1) - aggreg_data1.count()
 # COMMAND ----------
 
 aggreg_data1.fillna(aggreg_data1.mean(), inplace =True)
+aggreg_data1.dtypes
+
+# COMMAND ----------
+
+
+aggreg_data1['KW']= aggreg_data1['KW'].str.replace(',','')
+aggreg_data1['KVA'] = aggreg_data1['KVA'].str.replace(',','')
+#aggreg_data1['SM4-TAC'] = aggreg_data1['SM4-TAC'].str.replace(',','')
+aggreg_data1['KW']= aggreg_data1['KW'].astype(float)
+aggreg_data1['KVA'] = aggreg_data1['KVA'].astype(float)
+aggreg_data1['SM4-TAC'] = aggreg_data1['SM4-TAC'].astype(float)
+aggreg_data1.dtypes
+
+# COMMAND ----------
+
+aggreg_data1['Energy_cost'] = aggreg_data1['BILL-RATE']*aggreg_data1['KW']
 
 # COMMAND ----------
 
@@ -88,7 +104,7 @@ pyplot.show()
 
 # COMMAND ----------
 
-variables = ['Compressor Running %','compressor_KWH','KWH_SM1','KWH_SM4','KWH_SM7','PF','KWH']
+variables = ['Compressor Running %','compressor_KWH','KWH_SM1','KWH_SM4','KWH_SM7','PF','KWH','TEMP','SM1-TAC','SM4-TAC','SM7-TAC']
 df_features = aggreg_data1[variables]
 corr = df_features.corr()
 
@@ -241,3 +257,4 @@ act_y
 
 # COMMAND ----------
 
+pred_y
