@@ -1,7 +1,8 @@
 <div>
-  <h1 class = "title">
+  <h1>
     Usage
   </h1>
+  <hr>
 </div>
 <!--main body -->
 <div class = "container"> 
@@ -11,8 +12,14 @@
     <div class="col-md"> 
 
       <div class="card">
-         Side 1
          <!--chart 1-->
+         <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
+            <e-series-collection>
+                <e-series [dataSource]='meters' 
+                     xName='Time' yName='KWH' name='Usage'></e-series>
+              
+            </e-series-collection>
+        </ejs-chart>
       </div>
     </div>
 
@@ -20,12 +27,12 @@
     <div class="col-md">
 
        <div class="card">
-         Side 2
-         <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
-            <e-series-collection>
-                <e-series [dataSource]='chartData' type='Line' xName='month' yName='sales' name='Sales'></e-series>
-            </e-series-collection>
+       <ejs-chart style='display:block' id='chartcontainer'  [primaryXAxis]='primaryXAxis'>
+        <e-series-collection>
+            <e-series [dataSource]='data' type='BoxAndWhisker' xName='x' yName='y'> </e-series>    
+        </e-series-collection>
         </ejs-chart>
+         
           <!--chart 2-->
       </div>
 
@@ -36,9 +43,8 @@
 <!--Meter Data-->
 <div>
   <h1> Meter Data </h1>
-
-    <p>Table is the meter reading </p>
-
+  <hr>
+  <div class="table-container">
         <ag-grid-angular
         style="min-width: 500px; height: 500px;"
         class="ag-theme-alpine"
@@ -46,5 +52,6 @@
         [columnDefs]="columnDefs"
         >
       </ag-grid-angular>
+  </div>
 
 </div>
