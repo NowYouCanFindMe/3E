@@ -17,11 +17,21 @@
          <ejs-chart id="chart-container" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
             <e-series-collection>
                 <e-series [dataSource]='meters' 
-                     xName='Time' yName='KWH' name='Usage'></e-series>
+                     xName='Time' yName='KWH' name='Usage' [marker]='marker'></e-series>
               
             </e-series-collection>
         </ejs-chart>
       </div>
+
+      <!-- control buttons -->
+      <div class="controls-container">   
+        <input class="control-icon" (click)="onClickMeMarker()"  type="image" tooltip="Label"  alt="label" src="../assets/marker.png">
+      
+        <!-- Label enable/disable -->
+        <input  class="control-icon" (click)="onClickMeLabel()"  type="image" tooltip="Label"  alt="label" src="../assets/label.png">
+      
+      </div>
+    
     </div>
 
     <!--side two-->

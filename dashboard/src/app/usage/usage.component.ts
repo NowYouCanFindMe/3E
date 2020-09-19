@@ -30,6 +30,12 @@ export class UsageComponent implements OnInit {
   public data: Object[];
   public dataX: Object[];
   public dataY: Object[];
+  public marker: Object;
+  public dataLabel: Object;
+  
+  hideMarkerFlag: boolean = true;
+  dataLabelFlag: boolean = true;
+
   // meter table
   columnDefs = [
     {headerName: 'id', field: 'id', sortable: true, filter: true},
@@ -90,15 +96,20 @@ export class UsageComponent implements OnInit {
                 { x: '09:30', y: [199.26, 264.60] },            
             ];
 
-
+      // initialize chart objects
       this.primaryXAxis = {
+        title: 'Time',
         valueType: 'Category'
       };
 
       this.primaryYAxis = {
-            labelFormat: '{value}'
+          title: 'KWH',
+          labelFormat: '{value}',
         };
-      this.initializeCharts();
+
+      
+      this.marker = { visible: this.hideMarkerFlag, width: 10, height: 10, dataLabel: { visible: this.dataLabelFlag}};
+     
   }
 
   loadMeterData() {
@@ -113,22 +124,55 @@ export class UsageComponent implements OnInit {
                         error => this.errorMsg = error);
   }
 
-  
+  onClickMeMarker(){
+    this.hideMarker(); 
+  };
 
-  getTime(){
-    for (let i in this.meters){
-      console.log(i);
-    }
+  onClickMeLabel ()
+  {
+    this.hideLabel();
   }
 
-  initializeCharts(){
+  hideMarker (){
 
-    console.log('intialize')
-    console.log(this.meters)
-    for (let value of this.meters){
-      console.log(value)
+    // change marker flag
+    this.hideMarkerFlag = !this.hideMarkerFlag;
+
+    // holder of marker object
+    const markerObject = this.marker;
+
+    // disable
+    if(this.hideMarkerFlag ){
+      this.marker = { visible: true, width: markerObject["width"], height: markerObject["height"], dataLabel: { visible: this.dataLabelFlag}};
     }
+    else {
+      // enable marker
+      this.marker = { visible: false, width: markerObject["width"], height: markerObject["height"], dataLabel: { visible: this.dataLabelFlag}};
+
+    }   
+    console.log(this.marker)
   }
+
+  hideLabel (){
+
+    // change marker flag
+    this.dataLabelFlag = !this.dataLabelFlag;
+
+    // holder of marker object
+    const markerObject = this.marker;
+
+    // disable
+    if(this.dataLabelFlag ){
+      this.marker = { visible: this.hideMarkerFlag, width: markerObject["width"], height: markerObject["height"], dataLabel: { visible: true}};
+    }
+    else {
+      // enable marker
+      this.marker = { visible: this.hideMarkerFlag, width: markerObject["width"], height: markerObject["height"], dataLabel: { visible: false}};
+
+    }   
+    console.log(this.marker)
+  }
+
 
     
 }
