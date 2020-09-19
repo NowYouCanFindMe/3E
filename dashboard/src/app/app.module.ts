@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { CompressorComponent } from './compressor/compressor.component';
 import { UsageComponent } from './usage/usage.component';
 import { HomeComponent } from './home/home.component';
+import { OvensComponent } from './ovens/ovens.component';
 
 // charts
 import { ChartModule } from '@syncfusion/ej2-angular-charts';
-import { CategoryService, LineSeriesService, BoxAndWhiskerSeriesService, DataLabelService } from '@syncfusion/ej2-angular-charts';
+import { CategoryService, LineSeriesService,
+         BoxAndWhiskerSeriesService, DataLabelService } from '@syncfusion/ej2-angular-charts';
 import { GridModule } from '@syncfusion/ej2-ng-grids';
 import { PageService } from '@syncfusion/ej2-ng-grids';
+
+
 
 // ng grid
 import { AgGridModule } from 'ag-grid-angular';
@@ -25,7 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CompressorService } from './shared/services/compressor.service';
 import { MeterService } from './shared/services/meter.service';
 import { OvenService } from './shared/services/oven.service';
-import { OvensComponent } from './ovens/ovens.component';
+import { UsageService } from './shared/services/usage.service';
 
 
 @NgModule({
@@ -51,7 +55,8 @@ import { OvensComponent } from './ovens/ovens.component';
     DataLabelService,
     LineSeriesService, 
     MeterService,
-    OvenService
+    OvenService,
+    UsageService
     ],
   bootstrap: [AppComponent]
 })
