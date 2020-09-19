@@ -75,32 +75,11 @@ aggreg_data1.dtypes
 
 # COMMAND ----------
 
-aggreg_data1['Energy_cost'] = aggreg_data1['BILL-RATE']*aggreg_data1['KW']
+aggreg_data1['Energy_cost'] = aggreg_data1['BILL-RATE']*aggreg_data1['KW'] 
 
 # COMMAND ----------
 
 aggreg_data1.head()
-
-# COMMAND ----------
-
-aggreg_data2 = aggreg_data1 [['Time_Stamp','Compressor Running %','compressor_KWH','KWH_SM1','KWH_SM4','KWH_SM7','PF','KWH']]
-aggreg_data2.set_index('Time_Stamp')
-aggreg_data2_ts = aggreg_data2.set_index('Time_Stamp')
-
-# COMMAND ----------
-
-values = aggreg_data2_ts.values
-# specify columns to plot
-groups = [0, 1, 2, 3, 4, 5, 6]
-i = 1
-# plot each column
-pyplot.figure(figsize=(10,6))
-for group in groups:
-	pyplot.subplot(len(groups), 1, i)
-	pyplot.plot(values[:, group])
-	pyplot.title(aggreg_data2_ts.columns[group], y=0.5, loc='right')
-	i += 1
-pyplot.show()
 
 # COMMAND ----------
 
@@ -122,19 +101,66 @@ ax.set_xticklabels(
 
 # COMMAND ----------
 
+variables = ['Compressor Running %','compressor_KWH','KWH_SM1','KWH_SM4','KWH_SM7','PF','KWH','TEMP','SM1-TAC','SM4-TAC','SM7-TAC']
+df_features = aggreg_data1[variables]
+corr = df_features.corr()
+
+ax = sns.heatmap(
+    corr, 
+    vmin=-1, vmax=1, center=0,
+    cmap=sns.diverging_palette(20, 220, n=200),
+    square=True
+)
+ax.set_xticklabels(
+    ax.get_xticklabels(),
+    rotation=45,
+    horizontalalignment='right'
+)
+
+# COMMAND ----------
+
+aggreg_data2 = aggreg_data1 [['Time_Stamp','Compressor Running %','compressor_KWH','KWH_SM1','KWH_SM4','KWH_SM7','PF','TEMP','SM1-TAC','SM4-TAC','SM7-TAC','KWH']]
+aggreg_data2.set_index('Time_Stamp')
+aggreg_data2_ts = aggreg_data2.set_index('Time_Stamp')
+
+# COMMAND ----------
+
+values = aggreg_data2_ts.values
+# specify columns to plot
+groups = [0, 1, 2, 3, 4, 5, 6,7,8,9,10]
+i = 1
+# plot each column
+pyplot.figure(figsize=(10,6))
+for group in groups:
+	pyplot.subplot(len(groups), 1, i)
+	pyplot.plot(values[:, group])
+	pyplot.title(aggreg_data2_ts.columns[group], y=0.5, loc='right')
+	i += 1
+pyplot.show()
+
+# COMMAND ----------
+
+display (corr)
+
+# COMMAND ----------
+
 len(values)
 
 # COMMAND ----------
 
 # Framing the problem as a supervised learning problem
 
-# Predict the Energy consumption at premise for the next 30 min based on: 
-#   ✔ weather conditions*
-#   ✔
-#   ✔
-#   ✔
-#   ✔
-#over the last 24 hours.
+# Predict the Energy consumption at the site for the next 30 min based on: 
+#   ✔ weather condition (Tempreture)
+#   ✔ Compressor running
+#   ✔ Energy consumede by SM1
+#   ✔ Energy consumede by SM4
+#   ✔ Energy consumede by SM7
+#   ✔ Energy consumede by compressor
+#   ✔ PF
+#   ✔ SM1-TAC
+#   ✔ SM2-TAC
+#   ✔ SM3-TAC
 
 # COMMAND ----------
 
@@ -199,11 +225,11 @@ print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
 #Build RNN
 # design network
 model = Sequential()
-model.add(LSTM(1000, input_shape=(train_X.shape[1], train_X.shape[2])))
+model.add(LSTM(2000, input_shape=(train_X.shape[1], train_X.shape[2])))
 model.add(Dense(1))
 model.compile(loss='mae', optimizer='adam')
 # fit network
-history = model.fit(train_X, train_y, epochs=90, batch_size=72, validation_data=(test_X, test_y), verbose=2, shuffle=False)
+history = model.fit(train_X, train_y, epochs=500, batch_size=72, validation_data=(test_X, test_y), verbose=2, shuffle=False)
 
 
 # COMMAND ----------
@@ -253,7 +279,12 @@ print('%.3f' % mape)
 
 # COMMAND ----------
 
-act_y
+verification_table = pd.DataFrame({'Time_Stamp':range(31),'Actual_KWH':act_y,'Predicted_KWH':pred_y})
+display(verification_table)
+
+# COMMAND ----------
+
+len(act_y)
 
 # COMMAND ----------
 
