@@ -5,9 +5,9 @@ Environment | Economy | Equity
 Deepak Babu, Jessica Thompson, Robert Nunoo, Robert Mwaniki
 
 ## Roles
-*Machine Learning:* Robert Nunoo
+*Data-Science:* Robert Nunoo
 
-*Backend:* Deepak Babu
+*Data-Science/Backend:* Deepak Babu
 
 *Analytics:* Jessica Thompson
 
