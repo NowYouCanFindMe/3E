@@ -1,4 +1,26 @@
 # 3E
+Environment | Economy | Equity
+
+### Team members
+Deepak Babu, Jessica Thompson, Robert Nunoo, Robert Mwaniki
+
+## Roles
+*Machine Learning:* Robert Nunoo
+
+*Backend:* Deepak Babu
+
+*Analytics:* Jessica Thompson
+
+*Front-End:* Robert Mwaniki
+
+## 24 to Code Hackathon
+Hackathon Use Case for Sustainability
+
+We need a simple interface for an energy optimization app so people can see exactly how precious resource are being consumed in a process, throughout a line, for a facility and even across an entire enterprise. 
+
+## Team members
+
+# Getting started
 
 ## Installing Strapi 
 
@@ -15,7 +37,7 @@ To install package.json dependencies
 
 Run any one of these three scripts
 
-`strart strapi`
+`start strapi`
 
 `npm run develop`
 
