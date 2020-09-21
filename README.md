@@ -18,8 +18,8 @@ Hackathon Use Case for Sustainability
 
 We need a simple interface for an energy optimization app so people can see exactly how precious resource are being consumed in a process, throughout a line, for a facility and even across an entire enterprise. 
 
-## Team members
-
+## Team pic
+![alt text](https://github.com/rnunoo/3E/blob/master/team_pic.png?raw=true)
 # Getting started
 
 ## Installing Strapi 
